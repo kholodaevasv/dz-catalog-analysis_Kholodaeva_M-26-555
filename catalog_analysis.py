@@ -201,6 +201,17 @@ def format_report_line(movie):
     return f"{title} ({year}) - {rating}/10, {duration}, жанры: {genres}"
 
 
+def title_sorted_by_rating(movies):
+    sorted_movies = sorted(movies, key=lambda m: m.get("rating", 0), reverse=True)
+    return [m["title"] for m in sorted_movies]
+
+
+def top_n_by_rating(movies, n):
+    sorted_movies = sorted(movies, key=lambda r: r.get("rating", 0), reverse=True)
+    top_movies = sorted_movies[0:n]
+    return [(m["title"], m["rating"]) for m in top_movies]
+
+
 def main():
     avg_rating = average_rating(movies)
     print(f"Средняя оценка по каталогу: {avg_rating}")
@@ -229,19 +240,21 @@ def main():
     long_movies = count_long_movies(movies, 120)
     print(f"Количество фильмов длинее 120 минут: {long_movies}")
 
-    print(
-        f"normalize_title: "
-        f'{normalize_title("silent hours")}'
-    )
+    print(f"normalize_title: " 
+          f'{normalize_title("silent hours")}')
 
-    print(
-        f"make_slug: "
-        f'{make_slug("silent hours")}'
-    )
+    print(f"make_slug: " 
+          f'{make_slug("silent hours")}')
 
     print("format_report_line:")
     for movie in movies:
         print(format_report_line(movie))
+
+    print(f"title_sorted_by_rating: " 
+          f"{title_sorted_by_rating(movies)}")
+
+    print(f"top_n_by_rating: " 
+          f"{top_n_by_rating(movies, 3)}")
 
 
 if __name__ == "__main__":
