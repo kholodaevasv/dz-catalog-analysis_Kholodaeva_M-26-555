@@ -167,6 +167,40 @@ def count_long_movies(movies, threshold):
     return counter
 
 
+def normalize_title(title):
+    title = title.split(" ")
+    norm_title = []
+    for word in title:
+        word = word[0].upper() + word[1:]
+        norm_title.append(word)
+    return " ".join(norm_title)
+
+
+def make_slug(title):
+    title = normalize_title(title)
+    slug_title = title.lower()
+    slug_title = slug_title.replace(" ", "-")
+    return slug_title
+
+
+def format_report_line(movie):
+    title = movie.get("title", "")
+    year = movie.get("year", 0)
+    rating = movie.get("rating", 0.0)
+    duration_min = movie.get("duration_min", 0)
+
+    title = normalize_title(title)
+
+    duration = duration_in_hours(duration_min)
+
+    genres = movie.get("genres", "")
+    genres = list(genres)
+    genres.sort()
+    genres = ", ".join(genres)
+
+    return f"{title} ({year}) - {rating}/10, {duration}, жанры: {genres}"
+
+
 def main():
     avg_rating = average_rating(movies)
     print(f"Средняя оценка по каталогу: {avg_rating}")
@@ -194,6 +228,20 @@ def main():
 
     long_movies = count_long_movies(movies, 120)
     print(f"Количество фильмов длинее 120 минут: {long_movies}")
+
+    print(
+        f"normalize_title: "
+        f'{normalize_title("silent hours")}'
+    )
+
+    print(
+        f"make_slug: "
+        f'{make_slug("silent hours")}'
+    )
+
+    print("format_report_line:")
+    for movie in movies:
+        print(format_report_line(movie))
 
 
 if __name__ == "__main__":
