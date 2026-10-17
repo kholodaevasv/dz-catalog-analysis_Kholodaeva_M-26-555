@@ -212,6 +212,32 @@ def top_n_by_rating(movies, n):
     return [(m["title"], m["rating"]) for m in top_movies]
 
 
+def count_by_genre(movies):
+    genre_dict = {}
+    for movie in movies:
+        for genre in movie["genres"]:
+            genre_dict[genre] = genre_dict.get(genre, 0) + 1
+    return genre_dict
+
+
+def actor_filmography(movies):
+    actor_dict = {}
+    for movie in movies:
+        for actor in movie["actors"]:
+            if actor not in actor_dict:
+                actor_dict[actor] = []
+            actor_dict[actor].append(movie["title"])
+    return actor_dict
+
+
+def rating_dict(movies):
+    avg = average_rating(movies)
+    rat_dict = {
+        movie["title"]: movie["rating"] for movie in movies if movie["rating"] > avg
+    }
+    return rat_dict
+
+
 def main():
     avg_rating = average_rating(movies)
     print(f"Средняя оценка по каталогу: {avg_rating}")
@@ -240,21 +266,23 @@ def main():
     long_movies = count_long_movies(movies, 120)
     print(f"Количество фильмов длинее 120 минут: {long_movies}")
 
-    print(f"normalize_title: " 
-          f'{normalize_title("silent hours")}')
+    print(f"normalize_title: {normalize_title("silent hours")}")
 
-    print(f"make_slug: " 
-          f'{make_slug("silent hours")}')
+    print(f"make_slug: {make_slug("silent hours")}")
 
     print("format_report_line:")
     for movie in movies:
         print(format_report_line(movie))
 
-    print(f"title_sorted_by_rating: " 
-          f"{title_sorted_by_rating(movies)}")
+    print(f"title_sorted_by_rating: {title_sorted_by_rating(movies)}")
 
-    print(f"top_n_by_rating: " 
-          f"{top_n_by_rating(movies, 3)}")
+    print(f"top_n_by_rating: {top_n_by_rating(movies, 3)}")
+
+    print(f"count_by_genre: {count_by_genre(movies)}")
+
+    print(f"actor_filmography: {actor_filmography(movies)}")
+
+    print(f"rating_dict: {rating_dict(movies)}")
 
 
 if __name__ == "__main__":
