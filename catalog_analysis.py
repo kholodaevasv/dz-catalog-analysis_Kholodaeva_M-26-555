@@ -237,21 +237,33 @@ def rating_dict(movies):
     }
     return rat_dict
 
+
 def all_genres(movies):
     genres = set()
     for movie in movies:
-        genres |= movie['genres']
+        genres |= movie["genres"]
     return genres
 
+
 def common_actors(movie1, movie2):
-    common_actors = set(movie1['actors']) & set(movie2['actors'])
+    common_actors = set(movie1["actors"]) & set(movie2["actors"])
     return common_actors
+
 
 def genres_only_in_one(movies_a, movies_b):
     genres_a = all_genres(movies_a)
     genres_b = all_genres(movies_b)
     genres_only_in_one = genres_a - genres_b
     return genres_only_in_one
+
+
+def iter_high_rated(movies, min_rating=8.0):
+    for movie in movies:
+        if movie["rating"] >= min_rating:
+            yield movie
+
+
+total_sum_duration = sum(m["duration_min"] for m in movies if m["rating"] > 7)
 
 
 def main():
@@ -301,11 +313,15 @@ def main():
     print(f"rating_dict: {rating_dict(movies)}")
 
     print(f"all_genres: {all_genres(movies)}")
-    
+
     print(f"common_actors: {common_actors(movies[0], movies[3])}")
-    
+
     print(f"genres_only_in_one: {genres_only_in_one(movies[5:6], movies[:5])}")
 
+    for movie in iter_high_rated(movies):
+        print(format_report_line(movie))
+
+    print(f"total_sum_duration: {total_sum_duration}")
 
 
 if __name__ == "__main__":
