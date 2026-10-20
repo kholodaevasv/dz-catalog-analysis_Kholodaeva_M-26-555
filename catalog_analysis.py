@@ -185,7 +185,7 @@ def make_slug(title):
     return slug_title
 
 def format_report_line(movie):
-    """Возвращает единую строку с описанием фильма'"""
+    """Возвращает единую строку с описанием фильма"""
     title = movie.get("title", "")
     year = movie.get("year", 0)
     rating = movie.get("rating", 0.0)
@@ -204,11 +204,12 @@ def format_report_line(movie):
 
 
 def title_sorted_by_rating(movies):
+    """Возвращает список названий фильмов, отсортированных по убыванию рейтинга"""
     sorted_movies = sorted(movies, key=lambda m: m.get("rating", 0), reverse=True)
     return [m["title"] for m in sorted_movies]
 
-
 def top_n_by_rating(movies, n):
+    """Возвращает список из n кортежей (title, rating) — топ по рейтингу"""
     sorted_movies = sorted(movies, key=lambda r: r.get("rating", 0), reverse=True)
     top_movies = sorted_movies[0:n]
     return [(m["title"], m["rating"]) for m in top_movies]
