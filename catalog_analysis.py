@@ -127,7 +127,6 @@ def rating_tier(rating):
     else:
         return "слабо"
 
-
 def decade_label(year):
     """По году возвращает метку"""
     match year:
@@ -140,6 +139,7 @@ def decade_label(year):
 
 
 def print_non_comedy_titles(movies):
+    """Названия фильмов, которые не относятся к жанру 'comedy'"""
     titles = []
     for movie in movies:
         if "comedy" in movie["genres"]:
@@ -147,8 +147,8 @@ def print_non_comedy_titles(movies):
         titles.append(movie["title"])
     print(f"Некомедийные фильмы: {', '.join(titles)}")
 
-
 def find_first_masterpiece(movies):
+    """Первый по порядку фильм с рейтингом выше 9.0"""
     m = 0
     while m < len(movies):
         if movies[m]["rating"] > 9.0:
@@ -158,8 +158,8 @@ def find_first_masterpiece(movies):
     else:
         print("Шедевров не найдено")
 
-
 def count_long_movies(movies, threshold):
+    """Считает количество фильмов длинеее threshold минут"""
     counter = 0
     for movie in movies:
         duration = movie.get("duration_min", 0)
