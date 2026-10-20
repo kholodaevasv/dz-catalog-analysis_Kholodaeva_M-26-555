@@ -125,7 +125,7 @@ def rating_tier(rating):
     elif 5 <= rating < 7:
         return "средне" if rating >= 6 else "средне (не стоит тратить время)"
     else:
-        return "слабо"
+        return "слабо" if rating >= 0 else "некорректный рейтинг"
 
 
 def decade_label(year):
