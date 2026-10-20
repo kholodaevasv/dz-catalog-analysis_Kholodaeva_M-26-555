@@ -245,18 +245,19 @@ def rating_dict(movies):
 
 
 def all_genres(movies):
+    """Возвращает множество всех уникальных жанров каталога"""
     genres = set()
     for movie in movies:
         genres |= movie["genres"]
     return genres
 
-
 def common_actors(movie1, movie2):
+    """Возвращает множество актеров, снимавшихся в обоих фильмах"""
     common_actors = set(movie1["actors"]) & set(movie2["actors"])
     return common_actors
 
-
 def genres_only_in_one(movies_a, movies_b):
+    """Возвращает жанры, встречающиеся в movies_a, но не встречающиеся в movies_b"""
     genres_a = all_genres(movies_a)
     genres_b = all_genres(movies_b)
     genres_only_in_one = genres_a - genres_b
