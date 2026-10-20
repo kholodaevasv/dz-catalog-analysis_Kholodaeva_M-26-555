@@ -169,6 +169,7 @@ def count_long_movies(movies, threshold):
 
 
 def normalize_title(title):
+    """Приводит строку к формату Title Case"""
     title = title.split(" ")
     norm_title = []
     for word in title:
@@ -176,15 +177,15 @@ def normalize_title(title):
         norm_title.append(word)
     return " ".join(norm_title)
 
-
 def make_slug(title):
+    """Превращает нормализованное название в «слаг» вида 'the-quiet-algorithm'"""
     title = normalize_title(title)
     slug_title = title.lower()
     slug_title = slug_title.replace(" ", "-")
     return slug_title
 
-
 def format_report_line(movie):
+    """Возвращает единую строку с описанием фильма'"""
     title = movie.get("title", "")
     year = movie.get("year", 0)
     rating = movie.get("rating", 0.0)
