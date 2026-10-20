@@ -216,14 +216,17 @@ def top_n_by_rating(movies, n):
 
 
 def count_by_genre(movies):
+    """Возвращает словарь {жанр: количество фильмов}, 
+    построенный вручную через цикл и метод dict.get() (без Counter)
+    """
     genre_dict = {}
     for movie in movies:
         for genre in movie["genres"]:
             genre_dict[genre] = genre_dict.get(genre, 0) + 1
     return genre_dict
 
-
 def actor_filmography(movies):
+    """Возвращает словарь {актер: [список названий фильмов]}"""
     actor_dict = {}
     for movie in movies:
         for actor in movie["actors"]:
@@ -232,8 +235,8 @@ def actor_filmography(movies):
             actor_dict[actor].append(movie["title"])
     return actor_dict
 
-
 def rating_dict(movies):
+    """Строит словарь {title: rating} только для фильмов с рейтингом выше среднего"""
     avg = average_rating(movies)
     rat_dict = {
         movie["title"]: movie["rating"] for movie in movies if movie["rating"] > avg
