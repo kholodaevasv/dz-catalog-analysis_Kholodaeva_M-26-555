@@ -274,13 +274,17 @@ def genres_only_in_one(movies_a, movies_b):
 
 
 def iter_high_rated(movies, min_rating=8.0):
-    """Функция-генератор, которая через yield лениво отдает фильмы с рейтингом не ниже min_rating"""
+    """Функция-генератор, которая через yield лениво отдает фильмы 
+    с рейтингом не ниже min_rating
+    """
     for movie in movies:
         if movie["rating"] >= min_rating:
             yield movie
 
 
-"""Генераторное выражение, которое считает суммарную длительность всех фильмов с рейтингом выше 7 в минутах"""
+"""Генераторное выражение, которое считает суммарную длительность всех фильмов 
+с рейтингом выше 7 в минутах
+"""
 total_sum_duration = sum(m["duration_min"] for m in movies if m["rating"] > 7)
 
 
