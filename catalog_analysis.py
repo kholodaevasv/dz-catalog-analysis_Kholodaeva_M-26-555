@@ -165,8 +165,7 @@ def count_long_movies(movies, threshold):
     """Считает количество фильмов длинеее threshold минут"""
     counter = 0
     for movie in movies:
-        duration = movie.get("duration_min", 0)
-        if duration > threshold:
+        if movie['duration'] > threshold:
             counter += 1
     return counter
 
