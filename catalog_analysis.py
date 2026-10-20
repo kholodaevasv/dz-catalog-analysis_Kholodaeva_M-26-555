@@ -129,6 +129,7 @@ def rating_tier(rating):
 
 
 def decade_label(year):
+    """По году возвращает метку"""
     match year:
         case _ if year > 2020:
             return "новый"
